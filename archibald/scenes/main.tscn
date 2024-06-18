@@ -15,6 +15,7 @@ script = ExtResource("1_qo3nl")
 script = ExtResource("2_whhpu")
 
 [node name="Archibald Speech" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("TTS")]
+volume_db = -10.0
 script = ExtResource("3_y4gvg")
 TTS = NodePath("../TTS System")
 

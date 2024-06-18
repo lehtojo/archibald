@@ -25,10 +25,14 @@ public partial class TTSSystem : Node
     [Export]
     public string OutputAudioFile { get; set; } = "output.wav";
 
+    [Export]
+    public AudioStreamWav.FormatEnum Format { get; set; } = AudioStreamWav.FormatEnum.Format16Bits;
+
+    [Export]
+    public int MixRate { get; set; } = 24000;
+
     private byte[]? Execute(PromptType type)
     {
-        return File.ReadAllBytes(Path.Combine(InstallationPath, OutputAudioFile));
-
         // Record the start time before generating the audio to check if the audio file has been generated
         var start = DateTime.Now;
 
@@ -66,10 +70,10 @@ public partial class TTSSystem : Node
         // Check if the output file has been modified since the process started
         var audio_path = Path.Combine(InstallationPath, OutputAudioFile);
 
-        // if (!File.Exists(audio_path) || File.GetLastWriteTime(audio_path) <= start)
-        // {
-        //     return null;
-        // }
+        if (!File.Exists(audio_path) || File.GetLastWriteTime(audio_path) <= start)
+        {
+            return null;
+        }
 
         try
         {
@@ -85,6 +89,15 @@ public partial class TTSSystem : Node
     {
         var audio_data = Execute(type);
 
-        return audio_data == null ? null : new AudioStreamWav { Data = audio_data };
+        if (audio_data == null)
+        {
+            return null;
+        }
+
+        return new AudioStreamWav {
+            Data = audio_data,
+            Format = Format,
+            MixRate = MixRate
+        };
     }
 }

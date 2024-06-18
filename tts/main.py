@@ -58,10 +58,10 @@ text = text[:4096]
 
 if mock:
     # Load the mock audio file
-    path = "options/" + prompt_option + "/mock.mp3"
+    path = "options/" + prompt_option + "/mock.wav"
 
     with open(path, "rb") as input:
-        with open("output.mp3", "wb") as output:
+        with open("output.wav", "wb") as output:
             output.write(input.read())
 
     print(text)
@@ -88,7 +88,7 @@ response = client.synthesize_speech(
 )
 
 # Write response's audio content to a file
-with open("output.mp3", "wb") as output:
+with open("output.wav", "wb") as output:
     output.write(response.audio_content)
 
 print(text)
