@@ -3,9 +3,9 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
-	public const float CameraSensitivity = 0.3f;
+	public const float Speed = 3.0f;
+	public const float JumpVelocity = 3.5f;
+	public const float CameraSensitivity = 0.2f;
 	[Export]
 	public Node3D RotationHelper { get; set; }
 
@@ -23,6 +23,9 @@ public partial class Player : CharacterBody3D
 		{
 			RotateY(-MathF.PI/180f * ev.Relative.X * CameraSensitivity);
 			RotationHelper.RotateX(-MathF.PI / 180f * ev.Relative.Y * CameraSensitivity);
+			RotationHelper.RotationDegrees = new Vector3(Mathf.Clamp(RotationHelper.RotationDegrees.X, -89, 89), 
+				RotationHelper.RotationDegrees.Y,
+                RotationHelper.RotationDegrees.Z);
 		}
     }
 
