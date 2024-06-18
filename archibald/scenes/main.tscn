@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b00068agqapjg"]
+[gd_scene load_steps=5 format=3 uid="uid://b00068agqapjg"]
 
 [ext_resource type="Script" path="res://scripts/FishingSystem.cs" id="1_qo3nl"]
 [ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="1_tw5hd"]
 [ext_resource type="Script" path="res://scripts/TTSSystem.cs" id="2_whhpu"]
+[ext_resource type="Script" path="res://scripts/ArchibaldSpeech.cs" id="3_y4gvg"]
 
 [node name="World" type="Node3D"]
 
@@ -12,9 +13,19 @@ script = ExtResource("1_qo3nl")
 [node name="TTS System" type="Node" parent="."]
 script = ExtResource("2_whhpu")
 
+[node name="Archibald Speech" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("TTS")]
+script = ExtResource("3_y4gvg")
+TTS = NodePath("../TTS System")
+
+[node name="Timer" type="Timer" parent="Archibald Speech"]
+wait_time = 10.0
+autostart = true
+
 [node name="Test Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -0.5, 0)
 use_collision = true
 
 [node name="Player" parent="." instance=ExtResource("1_tw5hd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08845, 0)
+
+[connection signal="timeout" from="Archibald Speech/Timer" to="Archibald Speech" method="Babble"]

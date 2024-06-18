@@ -39,15 +39,20 @@ public partial class TTSSystem : Node
             _ => throw new ArgumentException("Invalid prompt type")
         };
 
+        // Print current working directory
+        var working_directory = new Uri(Path.Combine(System.Environment.CurrentDirectory, InstallationPath)).LocalPath;
+        var python_executable = new Uri(Path.Combine(working_directory, PythonExecutable)).LocalPath;
+
         var process = new Process
         {
             StartInfo = new ProcessStartInfo
             {
-                FileName = PythonExecutable,
+                FileName = python_executable,
                 Arguments = string.Join(" ", Script, prompt_argument),
-                WorkingDirectory = InstallationPath,
-                UseShellExecute = true,
-                CreateNoWindow = true
+                WorkingDirectory = working_directory,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                Environment = { { "API_KEY", "1234" } }
             }
         };
 
@@ -55,12 +60,6 @@ public partial class TTSSystem : Node
         process.Start();
         process.WaitForExit();
         process.Close();
-
-        // Make sure the process exited with correct exit code
-        if (process.ExitCode != 0)
-        {
-            return null;
-        }
 
         // Check if the output file has been modified since the process started
         var audio_path = Path.Combine(InstallationPath, OutputAudioFile);
@@ -84,11 +83,6 @@ public partial class TTSSystem : Node
     {
         var audio_data = Execute(type);
 
-        if (audio_data == null)
-        {
-            return null;
-        }
-
-        return new AudioStreamMP3 { Data = audio_data };
+        return audio_data == null ? null : new AudioStreamMP3 { Data = audio_data };
     }
 }
