@@ -19,7 +19,7 @@ public partial class ArchibaldSpeech : AudioStreamPlayer3D
         Play();
     }
 
-    public void Speak(PromptType type)
+    public void SpeakAsync(PromptType type)
     {
         if (TTS == null)
         {
@@ -36,7 +36,12 @@ public partial class ArchibaldSpeech : AudioStreamPlayer3D
             return;
         }
 
-        Speak(audio);
+        CallDeferred(MethodName.Speak, audio);
+    }
+
+    public void Speak(PromptType type)
+    {
+        WorkerThreadPool.AddTask(Callable.From(() => SpeakAsync(type)));
     }
 
     public void Babble()
