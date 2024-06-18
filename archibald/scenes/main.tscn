@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://b00068agqapjg"]
+[gd_scene load_steps=4 format=3 uid="uid://b00068agqapjg"]
 
 [ext_resource type="Script" path="res://scripts/FishingSystem.cs" id="1_qo3nl"]
-[ext_resource type="PackedScene" uid="uid://c61yraqhuql64" path="res://scenes/Player.tscn" id="1_tw5hd"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="1_tw5hd"]
+[ext_resource type="Script" path="res://scripts/TTSSystem.cs" id="2_whhpu"]
 
 [node name="World" type="Node3D"]
 
 [node name="Fishing System" type="Node" parent="."]
 script = ExtResource("1_qo3nl")
+
+[node name="TTS System" type="Node" parent="."]
+script = ExtResource("2_whhpu")
 
 [node name="Test Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -0.5, 0)
