@@ -23,7 +23,7 @@ public partial class TTSSystem : Node
     public string Script { get; set; } = "main.py";
 
     [Export]
-    public string OutputAudioFile { get; set; } = "output.mp3";
+    public string OutputAudioFile { get; set; } = "output.wav";
 
     private byte[]? Execute(PromptType type)
     {
@@ -64,10 +64,10 @@ public partial class TTSSystem : Node
         // Check if the output file has been modified since the process started
         var audio_path = Path.Combine(InstallationPath, OutputAudioFile);
 
-        if (!File.Exists(audio_path) || File.GetLastWriteTime(audio_path) <= start)
-        {
-            return null;
-        }
+        // if (!File.Exists(audio_path) || File.GetLastWriteTime(audio_path) <= start)
+        // {
+        //     return null;
+        // }
 
         try
         {
@@ -83,6 +83,6 @@ public partial class TTSSystem : Node
     {
         var audio_data = Execute(type);
 
-        return audio_data == null ? null : new AudioStreamMP3 { Data = audio_data };
+        return audio_data == null ? null : new AudioStreamWav { Data = audio_data };
     }
 }
