@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c61yraqhuql64"]
+[gd_scene load_steps=7 format=3 uid="uid://ckkc6yihv8lmk"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_16i76"]
 
@@ -43,3 +43,4 @@ shape = SubResource("BoxShape3D_cvl13")
 [node name="Camera3D" type="Camera3D" parent="Rotation_Helper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.471093, 0)
 environment = SubResource("Environment_gf3pp")
+current = true

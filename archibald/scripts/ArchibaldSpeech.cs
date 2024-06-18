@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class ArchibaldSpeech : AudioStreamPlayer
+public partial class ArchibaldSpeech : AudioStreamPlayer3D
 {
     [Export]
     public TTSSystem? TTS { get; set; }

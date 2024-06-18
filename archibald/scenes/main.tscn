@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b00068agqapjg"]
+[gd_scene load_steps=8 format=3 uid="uid://b00068agqapjg"]
 
 [ext_resource type="Script" path="res://scripts/FishingSystem.cs" id="1_qo3nl"]
 [ext_resource type="PackedScene" uid="uid://ckkc6yihv8lmk" path="res://scenes/Player.tscn" id="1_tw5hd"]
 [ext_resource type="Script" path="res://scripts/TTSSystem.cs" id="2_whhpu"]
 [ext_resource type="Script" path="res://scripts/ArchibaldSpeech.cs" id="3_y4gvg"]
 [ext_resource type="PackedScene" uid="uid://dnolyrvgot5mq" path="res://scenes/WaterPlane.tscn" id="4_82bg0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3eqtw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i5pki"]
 
 [node name="World" type="Node3D"]
 
@@ -13,15 +17,6 @@ script = ExtResource("1_qo3nl")
 
 [node name="TTS System" type="Node" parent="."]
 script = ExtResource("2_whhpu")
-
-[node name="Archibald Speech" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("TTS")]
-volume_db = -10.0
-script = ExtResource("3_y4gvg")
-TTS = NodePath("../TTS System")
-
-[node name="Timer" type="Timer" parent="Archibald Speech"]
-wait_time = 10.0
-autostart = true
 
 [node name="Test Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -0.5, 0)
@@ -37,4 +32,23 @@ transform = Transform3D(99.9924, -1.23043, 0, 1.23043, 99.9924, 0, 0, 0, 100, 0,
 transform = Transform3D(0.5, -0.365998, -0.784886, -7.92319e-08, -0.906308, 0.422618, -0.866025, -0.211309, -0.453154, 0, 10, 0)
 light_color = Color(0.999723, 1, 0.952096, 1)
 
-[connection signal="timeout" from="Archibald Speech/Timer" to="Archibald Speech" method="Babble"]
+[node name="Archibald" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 3)
+
+[node name="Mesh" type="MeshInstance3D" parent="Archibald"]
+mesh = SubResource("CapsuleMesh_3eqtw")
+
+[node name="Collider" type="CollisionShape3D" parent="Archibald"]
+shape = SubResource("CapsuleShape3D_i5pki")
+
+[node name="Archibald Speech" type="AudioStreamPlayer3D" parent="Archibald" node_paths=PackedStringArray("TTS")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+volume_db = -10.0
+script = ExtResource("3_y4gvg")
+TTS = NodePath("../../TTS System")
+
+[node name="Timer" type="Timer" parent="Archibald/Archibald Speech"]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Archibald/Archibald Speech/Timer" to="Archibald/Archibald Speech" method="Babble"]
