@@ -27,6 +27,8 @@ public partial class TTSSystem : Node
 
     private byte[]? Execute(PromptType type)
     {
+        return File.ReadAllBytes(Path.Combine(InstallationPath, OutputAudioFile));
+
         // Record the start time before generating the audio to check if the audio file has been generated
         var start = DateTime.Now;
 
