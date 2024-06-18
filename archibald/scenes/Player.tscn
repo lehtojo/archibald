@@ -6,8 +6,9 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cvl13"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("RotationHelper")]
 script = ExtResource("1_16i76")
+RotationHelper = NodePath("Rotation_Helper")
 
 [node name="Body_Collision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_s7iib")
