@@ -10,7 +10,9 @@ uniform vec2 wave_direction2 = vec2(0.0, 1.0);
 uniform float time_scale : hint_range(0, 0.2, 0.005) = 0.025;
 
 void vertex() {
-	// Called for every vertex the material is visible on.
+	vec2 time = (TIME * wave_direction) * time_scale;
+	float height = texture(texture_normal,UV + time).r;
+	VERTEX.y += height * 0.125;
 }
 
 void fragment() {
@@ -18,8 +20,7 @@ void fragment() {
 	vec2 time = (TIME * wave_direction) * time_scale;
 	vec2 time2 = (TIME * wave_direction2) * time_scale;
 	vec3 normal_blend = mix(texture(texture_normal,UV + time).rgb, texture(texture_normal2,UV + time2).rgb, 0.5);
-	
-	
+
 	ALBEDO = albedo;
 	METALLIC = metallic;
 	ROUGHNESS = roughness;
