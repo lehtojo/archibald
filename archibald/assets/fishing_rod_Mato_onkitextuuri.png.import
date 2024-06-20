@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcb1jfws5ixvx"
-path.s3tc="res://.godot/imported/fishing_rod_Mato_onkitextuuri.png-1510948b1167b9e7023a72d760e40f30.s3tc.ctex"
+path.s3tc="res://.godot/imported/fishing_rod_Mato_onkitextuuri.png-9770433ee9a411c8bdb8d45ab54df319.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://models/fishing_rod_Mato_onkitextuuri.png"
-dest_files=["res://.godot/imported/fishing_rod_Mato_onkitextuuri.png-1510948b1167b9e7023a72d760e40f30.s3tc.ctex"]
+source_file="res://assets/fishing_rod_Mato_onkitextuuri.png"
+dest_files=["res://.godot/imported/fishing_rod_Mato_onkitextuuri.png-9770433ee9a411c8bdb8d45ab54df319.s3tc.ctex"]
 
 [params]
 

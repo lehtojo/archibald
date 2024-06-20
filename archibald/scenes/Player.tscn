@@ -1,12 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://c61yraqhuql64"]
+[gd_scene load_steps=13 format=3 uid="uid://c61yraqhuql64"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_16i76"]
 [ext_resource type="Script" path="res://scripts/FishingRod.cs" id="2_0ib87"]
-[ext_resource type="PackedScene" uid="uid://b4sfx724wvkbo" path="res://models/fishing_rod.glb" id="2_q3o5n"]
+[ext_resource type="PackedScene" uid="uid://b4sfx724wvkbo" path="res://assets/fishing_rod.glb" id="3_c30fo"]
+[ext_resource type="PackedScene" uid="uid://cjdtbutubb14m" path="res://scenes/float.tscn" id="3_j4m2o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s7iib"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cvl13"]
+size = Vector3(0.887951, 0.203186, 0.940207)
 
 [sub_resource type="Animation" id="Animation_gk4uw"]
 length = 0.001
@@ -70,11 +72,17 @@ tracks/2/path = NodePath("FishingRod")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(1, 1.1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
 "method": &"RodReachedTop"
+}, {
+"args": [],
+"method": &"ThrowFloat"
+}, {
+"args": [],
+"method": &"RodThrowEnded"
 }]
 }
 
@@ -105,7 +113,7 @@ RotationHelper = NodePath("RotationHelper")
 shape = SubResource("CapsuleShape3D_s7iib")
 
 [node name="FeetCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -0.595839, 0)
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, -0.000822544, -0.935827, -0.00257564)
 shape = SubResource("BoxShape3D_cvl13")
 
 [node name="RotationHelper" type="Node3D" parent="."]
@@ -114,8 +122,9 @@ shape = SubResource("BoxShape3D_cvl13")
 
 [node name="FishingRod" type="Node3D" parent="RotationHelper/Items"]
 script = ExtResource("2_0ib87")
+FloatScene = ExtResource("3_j4m2o")
 
-[node name="fishing_rod" parent="RotationHelper/Items/FishingRod" instance=ExtResource("2_q3o5n")]
+[node name="fishing_rod" parent="RotationHelper/Items/FishingRod" instance=ExtResource("3_c30fo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.479704, 0, -0.976239)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RotationHelper/Items/FishingRod"]
@@ -123,6 +132,12 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_bxa0r")
 }
+
+[node name="ProjectileSpawn" type="Node3D" parent="RotationHelper/Items/FishingRod"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-07, 1.14709, -1.42589)
+
+[node name="ProjectileDirection" type="Node3D" parent="RotationHelper/Items/FishingRod"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-07, 1.58063, -2.08352)
 
 [node name="Camera3D" type="Camera3D" parent="RotationHelper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.471093, 0)

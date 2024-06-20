@@ -5,6 +5,8 @@ public partial class FishingRod : Node3D
 {
 	public AnimationPlayer Ap { get; set; }
 	public bool WaitForThrow { get; set; } = false;
+	[Export]
+	public PackedScene FloatScene { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -38,5 +40,23 @@ public partial class FishingRod : Node3D
 	{
 		WaitForThrow = true;
 		Ap.Pause();
+	}
+
+
+	public void RodThrowEnded()
+	{
+		WaitForThrow = false;
+		Ap.Pause();
+	}
+
+	public void ThrowFloat()
+	{
+		// float = koho 
+		RigidBody3D koho = FloatScene.Instantiate<RigidBody3D>();
+		GetNode("/root/World").AddChild(koho);
+		Vector3 ps = GetNode<Node3D>("ProjectileSpawn").GlobalPosition;
+        koho.Position = ps;
+		Vector3 throwDirection = GetNode<Node3D>("ProjectileDirection").GlobalPosition - ps;
+        koho.ApplyImpulse(throwDirection.Normalized() * 10);
 	}
 }

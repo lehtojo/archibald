@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b4sfx724wvkbo"
-path="res://.godot/imported/fishing_rod.glb-13a159ffb36731aeba692132ba862c65.scn"
+uid="uid://dbv23xlb4ddk4"
+path="res://.godot/imported/test_float.glb-055d4bc79542790513d4a33f44d394da.scn"
 
 [deps]
 
-source_file="res://models/fishing_rod.glb"
-dest_files=["res://.godot/imported/fishing_rod.glb-13a159ffb36731aeba692132ba862c65.scn"]
+source_file="res://assets/test_float.glb"
+dest_files=["res://.godot/imported/test_float.glb-055d4bc79542790513d4a33f44d394da.scn"]
 
 [params]
 

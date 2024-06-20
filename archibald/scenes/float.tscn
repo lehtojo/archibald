@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjdtbutubb14m"]
+
+[ext_resource type="PackedScene" uid="uid://dbv23xlb4ddk4" path="res://assets/test_float.glb" id="1_e4axw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x3ef1"]
+radius = 0.0297011
+height = 0.144033
+
+[node name="Float" type="RigidBody3D"]
+
+[node name="test_float" parent="." instance=ExtResource("1_e4axw")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0132963, 0)
+shape = SubResource("CapsuleShape3D_x3ef1")
