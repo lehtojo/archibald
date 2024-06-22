@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://b00068agqapjg"]
 
 [ext_resource type="Script" path="res://scripts/FishingSystem.cs" id="1_qo3nl"]
-[ext_resource type="PackedScene" uid="uid://ckkc6yihv8lmk" path="res://scenes/Player.tscn" id="1_tw5hd"]
+[ext_resource type="PackedScene" uid="uid://c61yraqhuql64" path="res://scenes/Player.tscn" id="1_tw5hd"]
 [ext_resource type="Script" path="res://scripts/TTSSystem.cs" id="2_whhpu"]
 [ext_resource type="Script" path="res://scripts/ArchibaldSpeech.cs" id="3_y4gvg"]
 [ext_resource type="PackedScene" uid="uid://dnolyrvgot5mq" path="res://scenes/WaterPlane.tscn" id="4_82bg0"]
@@ -34,13 +34,13 @@ script = ExtResource("1_qo3nl")
 script = ExtResource("2_whhpu")
 
 [node name="Player" parent="." instance=ExtResource("1_tw5hd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.29525, 2.36967)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.99731, 2.36967)
 
 [node name="Water" parent="." instance=ExtResource("4_82bg0")]
-transform = Transform3D(99.9924, -1.23043, 0, 1.23043, 99.9924, 0, 0, 0, 100, 0, -5, 0)
+transform = Transform3D(99.9923, -1.23741, 0, 1.23741, 99.9923, 0, 0, 0, 100, 0, 0, 0)
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.5, -0.365998, -0.784886, -7.92319e-08, -0.906308, 0.422618, -0.866025, -0.211309, -0.453154, 0, 10, 0)
+transform = Transform3D(0.5, -0.365998, -0.784886, -7.92319e-08, -0.906308, 0.422618, -0.866025, -0.211309, -0.453154, 0, 9.64019, 0)
 light_color = Color(0.999723, 1, 0.952096, 1)
 
 [node name="Archibald" type="RigidBody3D" parent="."]
@@ -52,13 +52,15 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 
 [node name="Mesh" type="MeshInstance3D" parent="Archibald"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.29794, 0)
 mesh = SubResource("CapsuleMesh_3eqtw")
 
 [node name="Collider" type="CollisionShape3D" parent="Archibald"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.29794, 0)
 shape = SubResource("CapsuleShape3D_i5pki")
 
 [node name="Archibald Speech" type="AudioStreamPlayer3D" parent="Archibald" node_paths=PackedStringArray("TTS")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.797941, 0)
 volume_db = -10.0
 script = ExtResource("3_y4gvg")
 TTS = NodePath("../../TTS System")
@@ -79,44 +81,44 @@ gravity_scale = 0.0
 script = ExtResource("6_wywh8")
 
 [node name="Mesh" type="MeshInstance3D" parent="Boat"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.29794, 0)
 mesh = ExtResource("6_ursa2")
 skeleton = NodePath("../..")
 
 [node name="Collider 1" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 0.271729, 0.756805)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, -1.02621, 0.756805)
 shape = SubResource("BoxShape3D_qvd6j")
 
 [node name="Collider 2" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0700989, 0.684418, -0.148605)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0700989, -0.613523, -0.148605)
 shape = SubResource("BoxShape3D_qrer5")
 
 [node name="Collider 3" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0700989, 0.684418, 2.40984)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0700989, -0.613523, 2.40984)
 shape = SubResource("BoxShape3D_qrer5")
 
 [node name="Collider 4" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.63996, 0.721266, 0.769179)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.63996, -0.576675, 0.769179)
 shape = SubResource("BoxShape3D_uybu0")
 
 [node name="Collider 5" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68569, 0.746861, 0.741563)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68569, -0.55108, 0.741563)
 shape = SubResource("BoxShape3D_uybu0")
 
 [node name="Collider 6" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00251591, 0.739856, 3.8463)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00251591, -0.558085, 3.8463)
 shape = SubResource("BoxShape3D_rgumv")
 
 [node name="Collider 7" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00251591, 0.740313, -2.08328)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00251591, -0.557628, -2.08328)
 shape = SubResource("BoxShape3D_rgumv")
 
 [node name="Collider 8" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(0.49294, 0, 0.870063, 0, 1, 0, -0.870063, 0, 0.49294, -0.972605, 0.740313, -1.43299)
+transform = Transform3D(0.49294, 0, 0.870063, 0, 1, 0, -0.870063, 0, 0.49294, -0.972605, -0.557628, -1.43299)
 shape = SubResource("BoxShape3D_rgumv")
 
 [node name="Collider 9" type="CollisionShape3D" parent="Boat"]
-transform = Transform3D(0.492424, 0, -0.870356, 0, 1, 0, 0.870356, 0, 0.492424, 0.973, 0.724054, -1.433)
+transform = Transform3D(0.492424, 0, -0.870356, 0, 1, 0, 0.870356, 0, 0.492424, 0.973, -0.573887, -1.433)
 shape = SubResource("BoxShape3D_rgumv")
 
 [connection signal="timeout" from="Archibald/Archibald Speech/Timer" to="Archibald/Archibald Speech" method="Babble"]

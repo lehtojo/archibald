@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnolyrvgot5mq"]
+[gd_scene load_steps=9 format=3 uid="uid://dnolyrvgot5mq"]
 
 [ext_resource type="Shader" path="res://shader/WaterShader.gdshader" id="1_8l86s"]
+[ext_resource type="Script" path="res://scripts/Water.cs" id="2_j6t5b"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_v3w10"]
 size = Vector2(1, 1)
@@ -44,3 +45,4 @@ shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_kl64i")
 [node name="WaterPlane" type="MeshInstance3D"]
 mesh = SubResource("PlaneMesh_v3w10")
 surface_material_override/0 = SubResource("ShaderMaterial_xq0x2")
+script = ExtResource("2_j6t5b")

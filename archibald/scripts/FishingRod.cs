@@ -7,6 +7,7 @@ public partial class FishingRod : Node3D
 	public bool WaitForThrow { get; set; } = false;
 	[Export]
 	public PackedScene FloatScene { get; set; }
+	public Koho? Koho { get; set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -17,21 +18,33 @@ public partial class FishingRod : Node3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        if (Input.IsActionPressed("throwRod"))
+		if (Koho == null)
 		{
-			if (!WaitForThrow) Ap.Play("readyingAnimation");
-		}
-        else
-        {
-			if (WaitForThrow)
+			if (Input.IsActionPressed("throwRod"))
 			{
-                Ap.Play("readyingAnimation");
-            }
+				if (!WaitForThrow) Ap.Play("readyingAnimation");
+			}
 			else
 			{
-                Ap.Play("RESET");
-                WaitForThrow = false;
-            }
+				if (WaitForThrow)
+				{
+			        Ap.Play("readyingAnimation");
+			    }
+				else
+				{
+			        Ap.Play("RESET");
+			        WaitForThrow = false;
+			    }
+			}
+		}
+		else
+		{
+            if (Input.IsActionPressed("throwRod"))
+			{
+				Koho.QueueFree();
+				Koho = null;
+			}
+
         }
 
     }
@@ -52,11 +65,11 @@ public partial class FishingRod : Node3D
 	public void ThrowFloat()
 	{
 		// float = koho 
-		RigidBody3D koho = FloatScene.Instantiate<RigidBody3D>();
-		GetNode("/root/World").AddChild(koho);
+		Koho = FloatScene.Instantiate<Koho>();
+		GetNode("/root/World").AddChild(Koho);
 		Vector3 ps = GetNode<Node3D>("ProjectileSpawn").GlobalPosition;
-        koho.Position = ps;
+        Koho.Position = ps;
 		Vector3 throwDirection = GetNode<Node3D>("ProjectileDirection").GlobalPosition - ps;
-        koho.ApplyImpulse(throwDirection.Normalized() * 10);
+        Koho.ApplyImpulse(throwDirection.Normalized() * 10);
 	}
 }

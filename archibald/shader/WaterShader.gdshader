@@ -11,7 +11,7 @@ uniform float time_scale : hint_range(0, 0.2, 0.005) = 0.025;
 
 void vertex() {
 	vec2 time = (TIME * wave_direction) * time_scale;
-	float height = texture(texture_normal,UV + time).r;
+	float height = texture(texture_normal,UV + time).r - 0.5;
 	VERTEX.y += height * 0.125;
 }
 
