@@ -11,18 +11,76 @@ public partial class Koho : RigidBody3D
 	public float BuoyancyStart { get; set; } = -5.0f;
 	[Export]
 	public Timer? CatchTimer { get; set; }
-
-	public event Action? Caught;
+	[Export]
+	public CpuParticles3D? CatchingParticles { get; set; }
+	[Export]
+	public Timer? ReleaseTimer { get; set; }
+	[Export]
+	public int ReleaseTime { get; set; } = 3;
 
 	private FishingSystem? FishingSystem { get; set; }
 	private float BuoancyTimeElapsed { get; set; } = 0.0f;
 	private bool Submerged { get; set; } = false;
+	public bool IsFishCaught { get; private set; }
+
+	private void EnableCatchingAnimation()
+	{
+		if (CatchingParticles == null)
+		{
+			GD.PrintErr("Catching particles is not set");
+			return;
+		}
+
+		CatchingParticles.Emitting = true;
+
+		// Todo: The float could also shake up and down?
+	}
+
+	private void DisableCatchingAnimation()
+	{
+		if (CatchingParticles == null)
+		{
+			GD.PrintErr("Catching particles is not set");
+			return;
+		}
+
+		CatchingParticles.Emitting = false;
+	}
+
+	public void CatchFish()
+	{
+		FishingSystem?.ChooseNextSector();
+	}
+
+	public void OnFishReleased()
+	{
+		GD.Print("Fish released");
+		IsFishCaught = false;
+		DisableCatchingAnimation();
+	}
+
+	private void ReleaseFishAfter(int seconds)
+	{
+		if (ReleaseTimer == null)
+		{
+			GD.PrintErr("Release timer is not set");
+			return;
+		}
+
+		GD.Print($"Releasing fish in {seconds} second(s)...");
+
+		ReleaseTimer.WaitTime = seconds;
+		ReleaseTimer.Start();
+	}
 
 	public void OnFishCaught()
 	{
-		GD.Print("Catching a fish...");
-		Caught?.Invoke();
-		FishingSystem?.ChooseNextSector();
+		GD.Print("Fish took the bait");
+		EnableCatchingAnimation();
+
+		// Release the fish shortly if the player doesn't respond
+		IsFishCaught = true;
+		ReleaseFishAfter(ReleaseTime);
 	}
 
 	private void CatchFishAfter(int seconds)

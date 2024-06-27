@@ -2,38 +2,46 @@ using Godot;
 
 public partial class FishingRod : Node3D
 {
-	public AnimationPlayer Ap { get; set; }
+	public AnimationPlayer Animations { get; set; } = null!;
 	public bool WaitForThrow { get; set; } = false;
+
 	[Export]
-	public PackedScene FloatScene { get; set; }
+	public PackedScene? FloatScene { get; set; }
+	[Export]
+	public float FloatThrowImpulse { get; set; } = 50.0f;
 	[Export]
 	public Node3D? Tip { get; set; }
+
 	public Koho? Koho { get; set; }
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	private void CatchFish()
 	{
-		Ap = GetNode<AnimationPlayer>("AnimationPlayer");
+		GD.Print("Catching a fish...");
+		Koho?.CatchFish();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Ready()
+	{
+		Animations = GetNode<AnimationPlayer>("AnimationPlayer");
+	}
+
 	public override void _Process(double delta)
 	{
 		if (Koho == null)
 		{
 			if (Input.IsActionPressed("throwRod"))
 			{
-				if (!WaitForThrow) Ap.Play("readyingAnimation");
+				if (!WaitForThrow) Animations.Play("readyingAnimation");
 			}
 			else
 			{
 				if (WaitForThrow)
 				{
-					Ap.Play("readyingAnimation");
+					Animations.Play("readyingAnimation");
 				}
 				else
 				{
-					Ap.Play("RESET");
+					Animations.Play("RESET");
 					WaitForThrow = false;
 				}
 			}
@@ -42,10 +50,14 @@ public partial class FishingRod : Node3D
 		{
 			if (Input.IsActionPressed("throwRod"))
 			{
+				if (Koho.IsFishCaught)
+				{
+					CatchFish();
+				}
+
 				Koho.QueueFree();
 				Koho = null;
 			}
-
 		}
 
 		if (Tip != null && Koho != null)
@@ -57,24 +69,32 @@ public partial class FishingRod : Node3D
 	public void RodReachedTop()
 	{
 		WaitForThrow = true;
-		Ap.Pause();
+		Animations.Pause();
 	}
-
 
 	public void RodThrowEnded()
 	{
 		WaitForThrow = false;
-		Ap.Pause();
+		Animations.Pause();
 	}
 
 	public void ThrowFloat()
 	{
+		if (FloatScene == null)
+		{
+			GD.PrintErr("Float scene is not set");
+			return;
+		}
+
 		// float = koho 
 		Koho = FloatScene.Instantiate<Koho>();
 		GetNode("/root/World").AddChild(Koho);
-		Vector3 ps = GetNode<Node3D>("ProjectileSpawn").GlobalPosition;
-		Koho.Position = ps;
-		Vector3 throwDirection = GetNode<Node3D>("ProjectileDirection").GlobalPosition - ps;
-		Koho.ApplyImpulse(throwDirection.Normalized() * 10);
+
+		// Place the float in the world and throw it
+		var position = GetNode<Node3D>("ProjectileSpawn").GlobalPosition;
+		var throw_direction = GetNode<Node3D>("ProjectileDirection").GlobalPosition - position;
+
+		Koho.Position = position;
+		Koho.ApplyImpulse(throw_direction.Normalized() * FloatThrowImpulse);
 	}
 }

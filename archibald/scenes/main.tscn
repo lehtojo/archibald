@@ -37,7 +37,7 @@ DebugSectorBallY = 0.5
 script = ExtResource("2_whhpu")
 
 [node name="Player" parent="." instance=ExtResource("1_tw5hd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92781, 2.37)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17606, 2.37)
 
 [node name="Water" parent="." instance=ExtResource("4_82bg0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -48,7 +48,7 @@ transform = Transform3D(0.5, -0.365998, -0.784886, -7.92319e-08, -0.906308, 0.42
 light_color = Color(0.999723, 1, 0.952096, 1)
 
 [node name="Archibald" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.724475, 4.13435, -0.159427)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.724475, 3.3826, -0.159427)
 axis_lock_linear_x = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
@@ -73,7 +73,7 @@ TTS = NodePath("../../TTS System")
 wait_time = 10.0
 
 [node name="Boat" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.37804, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62629, 0)
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
@@ -82,6 +82,8 @@ axis_lock_angular_y = true
 mass = 100.0
 gravity_scale = 0.0
 script = ExtResource("6_wywh8")
+RollSpeed = 0.0
+MaxRoll = 0.0
 
 [node name="Mesh" type="MeshInstance3D" parent="Boat"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, -1.29794, 0)

@@ -1,16 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds37bx812i0ay"]
+[gd_scene load_steps=5 format=3 uid="uid://ds37bx812i0ay"]
 
 [ext_resource type="Script" path="res://scripts/Koho.cs" id="1_6k72i"]
 [ext_resource type="PackedScene" uid="uid://dbv23xlb4ddk4" path="res://assets/test_float.glb" id="1_e4axw"]
 
-[node name="Float" type="RigidBody3D" node_paths=PackedStringArray("CatchTimer")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b882o"]
+albedo_color = Color(0.219463, 0.54088, 0.818529, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pebi0"]
+size = Vector3(0.05, 0.05, 0.05)
+
+[node name="Float" type="RigidBody3D" node_paths=PackedStringArray("CatchTimer", "CatchingParticles", "ReleaseTimer")]
 script = ExtResource("1_6k72i")
 BuoyancyStart = -2.0
 CatchTimer = NodePath("Catch Timer")
+CatchingParticles = NodePath("Particles")
+ReleaseTimer = NodePath("Release Timer")
+ReleaseTime = 5
 
 [node name="test_float" parent="." instance=ExtResource("1_e4axw")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 
 [node name="Catch Timer" type="Timer" parent="."]
 
+[node name="Release Timer" type="Timer" parent="."]
+
+[node name="Particles" type="CPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_b882o")
+emitting = false
+amount = 32
+lifetime = 0.75
+speed_scale = 4.65
+explosiveness = 0.75
+randomness = 0.45
+mesh = SubResource("BoxMesh_pebi0")
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector3(0, -0.1, 0)
+initial_velocity_min = 0.25
+initial_velocity_max = 1.0
+angular_velocity_min = 127.96
+angular_velocity_max = 144.71
+angle_max = 720.0
+color = Color(1.82897e-06, 0.309466, 0.688008, 1)
+
 [connection signal="timeout" from="Catch Timer" to="." method="OnFishCaught"]
+[connection signal="timeout" from="Release Timer" to="." method="OnFishReleased"]

@@ -123,6 +123,7 @@ shape = SubResource("BoxShape3D_cvl13")
 [node name="FishingRod" type="Node3D" parent="RotationHelper/Items" node_paths=PackedStringArray("Tip")]
 script = ExtResource("2_0ib87")
 FloatScene = ExtResource("3_j4m2o")
+FloatThrowImpulse = 10.0
 Tip = NodePath("Tip")
 
 [node name="fishing_rod" parent="RotationHelper/Items/FishingRod" instance=ExtResource("3_c30fo")]
