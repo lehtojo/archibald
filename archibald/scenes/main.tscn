@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b00068agqapjg"]
+[gd_scene load_steps=15 format=3 uid="uid://b00068agqapjg"]
 
 [ext_resource type="Script" path="res://scripts/FishingSystem.cs" id="1_qo3nl"]
 [ext_resource type="PackedScene" uid="uid://ckkc6yihv8lmk" path="res://scenes/Player.tscn" id="1_tw5hd"]
@@ -8,7 +8,6 @@
 [ext_resource type="Material" uid="uid://h77a12gvnq36" path="res://shader/water_material.tres" id="5_cr11n"]
 [ext_resource type="ArrayMesh" uid="uid://bl7uqrc5pq8op" path="res://assets/boat.obj" id="6_ursa2"]
 [ext_resource type="Script" path="res://scripts/Boat.cs" id="6_wywh8"]
-[ext_resource type="PackedScene" uid="uid://ds37bx812i0ay" path="res://scenes/float.tscn" id="9_swr01"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3eqtw"]
 
@@ -38,7 +37,7 @@ script = ExtResource("2_whhpu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.92781, 2.37)
 
 [node name="Water" parent="." instance=ExtResource("4_82bg0")]
-transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 surface_material_override/0 = ExtResource("5_cr11n")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
@@ -121,8 +120,5 @@ shape = SubResource("BoxShape3D_rgumv")
 [node name="Collider 9" type="CollisionShape3D" parent="Boat"]
 transform = Transform3D(0.492424, 0, -0.870356, 0, 1, 0, 0.870356, 0, 0.492424, 0.973, -0.573887, -1.433)
 shape = SubResource("BoxShape3D_rgumv")
-
-[node name="Float" parent="." instance=ExtResource("9_swr01")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -232.629, 4.25342, -206.882)
 
 [connection signal="timeout" from="Archibald/Archibald Speech/Timer" to="Archibald/Archibald Speech" method="Babble"]
