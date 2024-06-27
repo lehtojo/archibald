@@ -3,9 +3,14 @@
 [ext_resource type="Script" path="res://scripts/Koho.cs" id="1_6k72i"]
 [ext_resource type="PackedScene" uid="uid://dbv23xlb4ddk4" path="res://assets/test_float.glb" id="1_e4axw"]
 
-[node name="Float" type="RigidBody3D"]
+[node name="Float" type="RigidBody3D" node_paths=PackedStringArray("CatchTimer")]
 script = ExtResource("1_6k72i")
 BuoyancyStart = -2.0
+CatchTimer = NodePath("Catch Timer")
 
 [node name="test_float" parent="." instance=ExtResource("1_e4axw")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="Catch Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Catch Timer" to="." method="OnFishCaught"]

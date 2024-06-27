@@ -29,6 +29,9 @@ size = Vector3(3.64465, 1.21048, 0.468201)
 
 [node name="Fishing System" type="Node" parent="."]
 script = ExtResource("1_qo3nl")
+IsDebugDrawEnabled = true
+DebugSectorBallRadius = 0.5
+DebugSectorBallY = 0.5
 
 [node name="TTS System" type="Node" parent="."]
 script = ExtResource("2_whhpu")
