@@ -7,17 +7,42 @@ public partial class FishingRod : Node3D
 
 	[Export]
 	public PackedScene? FloatScene { get; set; }
+
 	[Export]
 	public float FloatThrowImpulse { get; set; } = 50.0f;
+
 	[Export]
 	public Node3D? Tip { get; set; }
 
+	[Export]
+	public PackedScene[] Fishes { get; set; } = [];
+
 	public Koho? Koho { get; set; }
+
+	private void OnFishCaught()
+	{
+		GD.Print("Caught the fish :^)");
+	}
 
 	private void CatchFish()
 	{
 		GD.Print("Catching a fish...");
-		Koho?.CatchFish();
+
+		if (Koho == null)
+		{
+			GD.PrintErr("Koho is not set");
+			return;
+		}
+
+		Koho.CatchFish();
+
+		// Choose a fish to catch and spawn it under the float
+		var fish = Utils.Random(Fishes).Instantiate<FishItem>();
+		GetNode("/root/World").AddChild(fish);
+
+		fish.Start = Koho.GlobalPosition + Vector3.Up;
+		fish.Target = this;
+		fish.Received += OnFishCaught;
 	}
 
 	public override void _Ready()

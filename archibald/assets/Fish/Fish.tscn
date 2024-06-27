@@ -1,14 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bapieql3xhtrn"]
+[gd_scene load_steps=5 format=3 uid="uid://bapieql3xhtrn"]
 
 [ext_resource type="Texture2D" uid="uid://cqqjtdltr8cy7" path="res://assets/Fish/Color.png" id="1_h8xvf"]
 [ext_resource type="ArrayMesh" uid="uid://dyqnxip16ddxb" path="res://assets/Fish/Fish.obj" id="1_w7smf"]
+[ext_resource type="Script" path="res://scripts/FishItem.cs" id="3_usl0h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_su7od"]
 albedo_texture = ExtResource("1_h8xvf")
+emission = Color(0.667213, 0.57979, 0.288675, 1)
+emission_energy_multiplier = 7.0
+rim_enabled = true
+rim_tint = 0.55
+backlight_enabled = true
+backlight = Color(0.883425, 0.934353, 0.0796806, 1)
 
 [node name="Fish" type="Node3D"]
+script = ExtResource("3_usl0h")
+ReceiveTime = 1.5
 
 [node name="Fish" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_su7od")
 mesh = ExtResource("1_w7smf")

@@ -29,6 +29,7 @@ size = Vector3(3.64465, 1.21048, 0.468201)
 
 [node name="Fishing System" type="Node" parent="."]
 script = ExtResource("1_qo3nl")
+CorrectSectorWaitTime = Vector2i(5, 10)
 IsDebugDrawEnabled = true
 DebugSectorBallRadius = 0.5
 DebugSectorBallY = 0.5
@@ -79,6 +80,7 @@ axis_lock_linear_y = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
+axis_lock_angular_z = true
 mass = 100.0
 gravity_scale = 0.0
 script = ExtResource("6_wywh8")
