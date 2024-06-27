@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c61yraqhuql64"]
+[gd_scene load_steps=13 format=3 uid="uid://ckkc6yihv8lmk"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_16i76"]
 [ext_resource type="Script" path="res://scripts/FishingRod.cs" id="2_0ib87"]
 [ext_resource type="PackedScene" uid="uid://b4sfx724wvkbo" path="res://assets/fishing_rod.glb" id="3_c30fo"]
-[ext_resource type="PackedScene" uid="uid://cjdtbutubb14m" path="res://scenes/float.tscn" id="3_j4m2o"]
+[ext_resource type="PackedScene" uid="uid://ds37bx812i0ay" path="res://scenes/float.tscn" id="3_j4m2o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s7iib"]
 
@@ -120,9 +120,10 @@ shape = SubResource("BoxShape3D_cvl13")
 
 [node name="Items" type="Node3D" parent="RotationHelper"]
 
-[node name="FishingRod" type="Node3D" parent="RotationHelper/Items"]
+[node name="FishingRod" type="Node3D" parent="RotationHelper/Items" node_paths=PackedStringArray("Tip")]
 script = ExtResource("2_0ib87")
 FloatScene = ExtResource("3_j4m2o")
+Tip = NodePath("Tip")
 
 [node name="fishing_rod" parent="RotationHelper/Items/FishingRod" instance=ExtResource("3_c30fo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.479704, 0, -0.976239)
@@ -138,6 +139,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-07, 1.14709, -1.425
 
 [node name="ProjectileDirection" type="Node3D" parent="RotationHelper/Items/FishingRod"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-07, 1.58063, -2.08352)
+
+[node name="Tip" type="Node3D" parent="RotationHelper/Items/FishingRod"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47922, 4.00151, -0.981028)
 
 [node name="Camera3D" type="Camera3D" parent="RotationHelper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.471093, 0)

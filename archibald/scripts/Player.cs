@@ -12,24 +12,24 @@ public partial class Player : CharacterBody3D
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-    }
+	}
 
-    public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseMotion ev)
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseMotion ev)
 		{
-			RotateY(-MathF.PI/180f * ev.Relative.X * CameraSensitivity);
+			RotateY(-MathF.PI / 180f * ev.Relative.X * CameraSensitivity);
 			RotationHelper.RotateX(-MathF.PI / 180f * ev.Relative.Y * CameraSensitivity);
-			RotationHelper.RotationDegrees = new Vector3(Mathf.Clamp(RotationHelper.RotationDegrees.X, -89, 89), 
+			RotationHelper.RotationDegrees = new Vector3(Mathf.Clamp(RotationHelper.RotationDegrees.X, -89, 89),
 				RotationHelper.RotationDegrees.Y,
-                RotationHelper.RotationDegrees.Z);
+				RotationHelper.RotationDegrees.Z);
 		}
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
 

@@ -4,14 +4,19 @@ using System;
 public partial class Koho : RigidBody3D
 {
 	[Export]
-	public float BoyancyForce { get; set; } = 1.0f;
+	public float BuoyancyRecoveryTime { get; set; } = 1.0f;
 	[Export]
 	public float WaterDrag { get; set; } = 0.85f;
 	[Export]
 	public float WaterAngularDrag { get; set; } = 0.85f;
 	[Export]
+	public float WaterLevel { get; set; } = 0.0f;
+	[Export]
+	public float BuoyancyStart { get; set; } = -5.0f;
+	[Export]
 	public Water? Water { get; set; }
-    public float Gravity { get; set; }
+	public float Gravity { get; set; }
+	private float BuoancyTimeElapsed { get; set; } = 0.0f;
 	private bool Submerged { get; set; } = false;
 
 	// Called when the node enters the scene tree for the first time.
@@ -26,24 +31,22 @@ public partial class Koho : RigidBody3D
 	{
 	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-		Submerged = false;
-        float waterLevel = Water.GetHeight(GlobalPosition);
-		float depth = waterLevel - this.GlobalPosition.Y;
-		if (depth > 0f)
+	public override void _PhysicsProcess(double delta)
+	{
+		if (GlobalPosition.Y <= BuoyancyStart)
 		{
 			Submerged = true;
-            ApplyCentralForce(Vector3.Up * -depth * BoyancyForce * Gravity);
+			BuoancyTimeElapsed = 0.0f;
 		}
-    }
 
-    public override void _IntegrateForces(PhysicsDirectBodyState3D state)
-    {
 		if (Submerged)
 		{
-            state.LinearVelocity *= 1 - WaterDrag;
-            state.AngularVelocity *= 1 - WaterAngularDrag;
-        }
-    }
+			BuoancyTimeElapsed += (float)delta;
+
+			var buoancy = Mathf.Min(BuoancyTimeElapsed / BuoyancyRecoveryTime, 1.0f);
+			GlobalPosition = GlobalPosition.Lerp(new Vector3(GlobalPosition.X, WaterLevel, GlobalPosition.Z), buoancy);
+
+			Freeze = true;
+		}
+	}
 }
