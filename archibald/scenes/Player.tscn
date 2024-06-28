@@ -149,4 +149,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47922, 4.00151, -0.981028)
 [node name="Camera3D" type="Camera3D" parent="RotationHelper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.471093, 0)
 environment = SubResource("Environment_gf3pp")
-current = true
