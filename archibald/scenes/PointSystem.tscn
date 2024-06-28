@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4i1n7evvmheo"]
+
+[ext_resource type="PackedScene" uid="uid://cq0ereybrt5uq" path="res://assets/PointBucket/PointBucket.glb" id="1_2p561"]
+[ext_resource type="Script" path="res://scripts/PointSystem.cs" id="1_j0eq3"]
+[ext_resource type="PackedScene" uid="uid://ci3bui5klk1nb" path="res://scenes/Point.tscn" id="2_g1lsb"]
+
+[node name="PointSystem" type="Node3D"]
+script = ExtResource("1_j0eq3")
+PointScene = ExtResource("2_g1lsb")
+
+[node name="PointBucket" parent="." instance=ExtResource("1_2p561")]

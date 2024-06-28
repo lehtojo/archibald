@@ -18,10 +18,12 @@ public partial class FishingRod : Node3D
 	public PackedScene[] Fishes { get; set; } = [];
 
 	public Koho? Koho { get; set; }
+	public PointSystem Points { get; set; }
 
 	private void OnFishCaught()
 	{
-		GD.Print("Caught the fish :^)");
+		Points.AddPoint();
+        GD.Print("Caught the fish :^)");
 	}
 
 	private void CatchFish()
@@ -48,7 +50,8 @@ public partial class FishingRod : Node3D
 	public override void _Ready()
 	{
 		Animations = GetNode<AnimationPlayer>("AnimationPlayer");
-	}
+		Points = GetNode<PointSystem>("/root/World/PointSystem");
+    }
 
 	public override void _Process(double delta)
 	{
