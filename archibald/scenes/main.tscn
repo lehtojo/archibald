@@ -8,8 +8,7 @@
 [ext_resource type="Material" uid="uid://h77a12gvnq36" path="res://shader/water_material.tres" id="5_cr11n"]
 [ext_resource type="ArrayMesh" uid="uid://bl7uqrc5pq8op" path="res://assets/boat.obj" id="6_ursa2"]
 [ext_resource type="Script" path="res://scripts/Boat.cs" id="6_wywh8"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3eqtw"]
+[ext_resource type="PackedScene" uid="uid://lmvk76cs8qww" path="res://assets/Archibald/Archibald.glb" id="7_b4g2p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i5pki"]
 
@@ -58,7 +57,6 @@ axis_lock_angular_z = true
 
 [node name="Mesh" type="MeshInstance3D" parent="Archibald"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.29794, 0)
-mesh = SubResource("CapsuleMesh_3eqtw")
 
 [node name="Collider" type="CollisionShape3D" parent="Archibald"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.29794, 0)
@@ -72,6 +70,9 @@ TTS = NodePath("../../TTS System")
 
 [node name="Timer" type="Timer" parent="Archibald/Archibald Speech"]
 wait_time = 10.0
+
+[node name="Archibald" parent="Archibald" instance=ExtResource("7_b4g2p")]
+transform = Transform3D(-9.83506e-09, 0, -0.225, 0, 0.225, 0, 0.225, 0, -9.83506e-09, 0, -1.13546, 0)
 
 [node name="Boat" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62629, 0)
