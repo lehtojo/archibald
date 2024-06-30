@@ -18,6 +18,8 @@ public partial class Koho : RigidBody3D
 	[Export]
 	public int ReleaseTime { get; set; } = 3;
 
+	public int? Sector => FishingSystem?.GetSectorIndex(GlobalPosition);
+
 	private FishingSystem? FishingSystem { get; set; }
 	private float BuoancyTimeElapsed { get; set; } = 0.0f;
 	private bool Submerged { get; set; } = false;
@@ -101,13 +103,14 @@ public partial class Koho : RigidBody3D
 	{
 		BuoancyTimeElapsed = 0.0f;
 
-		if (FishingSystem == null)
+		var sector = Sector;
+
+		if (sector == null || FishingSystem == null)
 		{
 			GD.PrintErr("Fishing system is not set");
 			return;
 		}
 
-		var sector = FishingSystem.GetSectorIndex(GlobalPosition);
 		var correct = sector == FishingSystem.CorrectSector;
 
 		if (correct)

@@ -106,9 +106,10 @@ sky_material = SubResource("ProceduralSkyMaterial_n7knm")
 background_mode = 2
 sky = SubResource("Sky_0cd2b")
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("RotationHelper")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("RotationHelper", "Rod")]
 script = ExtResource("1_16i76")
 RotationHelper = NodePath("RotationHelper")
+Rod = NodePath("RotationHelper/Items/FishingRod")
 
 [node name="BodyCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_s7iib")

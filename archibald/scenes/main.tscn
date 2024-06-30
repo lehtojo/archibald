@@ -71,14 +71,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.29794, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.29794, 0)
 shape = SubResource("CapsuleShape3D_i5pki")
 
-[node name="Archibald Speech" type="AudioStreamPlayer3D" parent="Archibald" node_paths=PackedStringArray("TTS")]
+[node name="Archibald Speech" type="AudioStreamPlayer3D" parent="Archibald" node_paths=PackedStringArray("TTS", "Player", "FishingSystem")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29794, 0)
 volume_db = -10.0
 script = ExtResource("3_y4gvg")
 TTS = NodePath("../../TTS System")
+Player = NodePath("../../Player")
+FishingSystem = NodePath("../../Fishing System")
 
 [node name="Timer" type="Timer" parent="Archibald/Archibald Speech"]
 wait_time = 10.0
+autostart = true
 
 [node name="Archibald" parent="Archibald" instance=ExtResource("7_b4g2p")]
 transform = Transform3D(-9.83506e-09, 0, -0.225, 0, 0.225, 0, 0.225, 0, -9.83506e-09, 0, -1.13546, 0)

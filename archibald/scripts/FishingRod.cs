@@ -20,6 +20,8 @@ public partial class FishingRod : Node3D
 	public Koho? Koho { get; set; }
 	public PointSystem Points { get; set; }
 
+	public int? FloatSector => Koho?.Sector;
+
 	private void OnFishCaught()
 	{
 		Points.AddPoint();

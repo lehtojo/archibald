@@ -6,11 +6,17 @@ public partial class Player : CharacterBody3D
 	public const float Speed = 3.0f;
 	public const float JumpVelocity = 3.5f;
 	public const float CameraSensitivity = 0.2f;
+
 	[Export]
 	public Node3D RotationHelper { get; set; }
 
+	[Export]
+	public FishingRod? Rod { get; set; }
+
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+
+	public int? FloatSector => Rod?.FloatSector;
 
 	public override void _Ready()
 	{
