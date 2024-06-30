@@ -21,9 +21,10 @@ void fragment() {
 	// Called for every pixel the material is visible on.
 	vec2 time = (TIME * wave_direction) * time_scale;
 	vec2 time2 = (TIME * wave_direction2) * time_scale;
+	float height = texture(texture_water_level, UV * 30.0 + time).r - 0.5;
 	vec3 normal_blend = mix(texture(texture_normal,UV + time).rgb, texture(texture_normal2,UV + time2).rgb, 0.5);
 
-	ALBEDO = albedo;
+	ALBEDO = mix(albedo, vec3(1.0, 1.0, 1.0), height * 0.025);
 	METALLIC = metallic;
 	ROUGHNESS = roughness;
 	SPECULAR = roughness;
