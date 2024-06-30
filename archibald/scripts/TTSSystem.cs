@@ -57,13 +57,18 @@ public partial class TTSSystem : Node
                 Arguments = string.Join(" ", Script, prompt_argument),
                 WorkingDirectory = working_directory,
                 UseShellExecute = false,
-                CreateNoWindow = true,
-                Environment = { { "API_KEY", "1234" } }
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
             }
         };
 
         // Wait for the process to generate the audio
         process.Start();
+
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
+
         process.WaitForExit();
         process.Close();
 
@@ -72,6 +77,10 @@ public partial class TTSSystem : Node
 
         if (!File.Exists(audio_path) || File.GetLastWriteTime(audio_path) <= start)
         {
+            // If the audio file has not been generated, read the standard output and error
+            GD.PrintErr(output);
+            GD.PrintErr(error);
+            GD.PrintErr("Audio file not found or not updated");
             return null;
         }
 

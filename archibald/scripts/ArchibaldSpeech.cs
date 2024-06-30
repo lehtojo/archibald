@@ -13,7 +13,7 @@ public partial class ArchibaldSpeech : AudioStreamPlayer3D
     public FishingSystem? FishingSystem { get; set; }
 
     public PromptType LastPrompt { get; private set; } = PromptType.Babble;
-    public bool IsSpeaking => Playing;
+    public bool IsSpeaking { get; private set; } = false;
 
     public void Advice(int sector, int correct, int sectors)
     {
@@ -49,6 +49,7 @@ public partial class ArchibaldSpeech : AudioStreamPlayer3D
     public void OnFinishedSpeaking()
     {
         GD.Print("Finished speaking");
+        IsSpeaking = false;
 
         if (Player == null)
         {
@@ -87,6 +88,8 @@ public partial class ArchibaldSpeech : AudioStreamPlayer3D
 
     public void SpeakAsync(PromptType type)
     {
+        IsSpeaking = true;
+
         if (TTS == null)
         {
             GD.PushError("TTS is not set");
@@ -100,6 +103,7 @@ public partial class ArchibaldSpeech : AudioStreamPlayer3D
         if (audio == null)
         {
             GD.PushError("Failed to generate speech");
+            IsSpeaking = false;
             return;
         }
 

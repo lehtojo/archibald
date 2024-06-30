@@ -20,17 +20,19 @@ mocks = {
 # Initialization:
 
 # Make sure that we have the API key set
-if "API_KEY" not in os.environ:
-    raise ValueError("Please set the API key (API_KEY environment variable)")
+api_key = "12345678"
 
-genai.configure(api_key=os.environ["API_KEY"])
+if "GOOGLE_API_KEY" in os.environ:
+    api_key = os.environ["GOOGLE_API_KEY"]
+
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 def generate_text(prompt):
     if mock:
         return mocks[prompt].strip()
     else:
-        return model.generate_content(prompt)
+        return model.generate_content(prompt).text
 
 # Select the prompt based on the command line argument
 if len(sys.argv) < 2:
