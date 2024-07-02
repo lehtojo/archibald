@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b00068agqapjg"]
+[gd_scene load_steps=22 format=3 uid="uid://b00068agqapjg"]
 
 [ext_resource type="Script" path="res://scripts/FishingSystem.cs" id="1_qo3nl"]
 [ext_resource type="PackedScene" uid="uid://ckkc6yihv8lmk" path="res://scenes/Player.tscn" id="1_tw5hd"]
@@ -10,8 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://dfsmi8tdlccc5" path="res://assets/Archibald/Archibald.blend" id="6_uamts"]
 [ext_resource type="ArrayMesh" uid="uid://bl7uqrc5pq8op" path="res://assets/boat.obj" id="6_ursa2"]
 [ext_resource type="Script" path="res://scripts/Boat.cs" id="6_wywh8"]
-[ext_resource type="PackedScene" path="res://scenes/PointSystem.tscn" id="10_p3m6g"]
+[ext_resource type="PackedScene" uid="uid://d4i1n7evvmheo" path="res://scenes/PointSystem.tscn" id="10_p3m6g"]
 [ext_resource type="AudioStream" uid="uid://bpx3r2lvkq1hf" path="res://audio/lake_ambience.wav" id="12_g7cad"]
+[ext_resource type="Script" path="res://scripts/GameOver.cs" id="13_f8ikk"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i5pki"]
 
@@ -26,6 +27,16 @@ size = Vector3(0.330566, 1.21777, 6.60529)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rgumv"]
 size = Vector3(3.64465, 1.21048, 0.468201)
+
+[sub_resource type="Gradient" id="Gradient_6hgw0"]
+offsets = PackedFloat32Array(0, 0.616883, 0.798701, 0.954545)
+colors = PackedColorArray(0, 0, 0, 1, 0.0352941, 0.321569, 0.447059, 1, 0.101961, 0.32549, 0.72549, 1, 0.0546592, 0.401808, 0.553997, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2a4bx"]
+gradient = SubResource("Gradient_6hgw0")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_xwxxl"]
 
 [node name="World" type="Node3D"]
 
@@ -137,5 +148,29 @@ transform = Transform3D(-0.759271, 0, -0.650774, 0, 1, 0, 0.650774, 0, -0.759271
 [node name="Ambience" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_g7cad")
 autoplay = true
+
+[node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("PointSystem", "EndingText")]
+visible = false
+script = ExtResource("13_f8ikk")
+PointSystem = NodePath("../PointSystem")
+EndingText = NodePath("EndingText")
+
+[node name="UnderWater" type="Sprite2D" parent="HUD"]
+position = Vector2(574.5, 324.5)
+scale = Vector2(18.5156, 10.7656)
+texture = SubResource("GradientTexture2D_2a4bx")
+
+[node name="EndingText" type="Label" parent="HUD"]
+offset_left = 189.0
+offset_top = 226.0
+offset_right = 955.0
+offset_bottom = 371.0
+theme_override_fonts/font = SubResource("SystemFont_xwxxl")
+theme_override_font_sizes/font_size = 63
+text = "Game Over
+
+"
+horizontal_alignment = 1
+uppercase = true
 
 [connection signal="timeout" from="Archibald/Archibald Speech/Timer" to="Archibald/Archibald Speech" method="Babble"]
