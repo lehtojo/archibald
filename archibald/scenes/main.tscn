@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b00068agqapjg"]
+[gd_scene load_steps=18 format=3 uid="uid://b00068agqapjg"]
 
 [ext_resource type="Script" path="res://scripts/FishingSystem.cs" id="1_qo3nl"]
 [ext_resource type="PackedScene" uid="uid://ckkc6yihv8lmk" path="res://scenes/Player.tscn" id="1_tw5hd"]
@@ -11,6 +11,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bl7uqrc5pq8op" path="res://assets/boat.obj" id="6_ursa2"]
 [ext_resource type="Script" path="res://scripts/Boat.cs" id="6_wywh8"]
 [ext_resource type="PackedScene" path="res://scenes/PointSystem.tscn" id="10_p3m6g"]
+[ext_resource type="AudioStream" uid="uid://bpx3r2lvkq1hf" path="res://audio/lake_ambience.wav" id="12_g7cad"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i5pki"]
 
@@ -132,5 +133,9 @@ shape = SubResource("BoxShape3D_rgumv")
 
 [node name="PointSystem" parent="." instance=ExtResource("10_p3m6g")]
 transform = Transform3D(-0.759271, 0, -0.650774, 0, 1, 0, 0.650774, 0, -0.759271, -0.743077, 1.03918, 3.19636)
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_g7cad")
+autoplay = true
 
 [connection signal="timeout" from="Archibald/Archibald Speech/Timer" to="Archibald/Archibald Speech" method="Babble"]
